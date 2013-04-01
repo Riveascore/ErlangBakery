@@ -3,7 +3,7 @@
 -import(fib, [fibo/1]).
 
 make_customer(ManagerPid, NumberLeftToSpawn) ->
-    Time = random:uniform(10000),
+    Time = crypto:rand_uniform(0, 1000),
     timer:sleep(Time),
     io:fwrite("Customer ~w has entered the bakery ^_^ random nubmer is: ~w~n", [NumberLeftToSpawn, Time]),
     ManagerPid ! {customer, NumberLeftToSpawn}.
@@ -63,9 +63,7 @@ manager(ServerList, CustomerList) ->
 
 serve(Server, Customer, ManagerPid) ->
     
-    %% random:uniform(20)
-    %% Input = random:uniform(20),
-    Input = 30,
+    Input = crypto:rand_uniform(0, 30),
     Result = fib:fibo(Input),
     io:fwrite("Customer ~w was given ~w brownies!~n", [Customer, Result]),
     ManagerPid ! {server, Server}.
